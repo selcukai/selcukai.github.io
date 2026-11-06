@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Selçuk Özkan">
+<meta property="og:description" content="Yapay Zeka Danışmanı – Gazeteci ve Tasarımcı">
+<title>Selçuk Özkan</title>
+<meta name="description" content="Selçuk Özkan – Yapay Zeka Danışmanı – Gazeteci ve Tasarımcı. Tasarım, video ve yapay zekayla içerik üretimi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: kişisel kart sütunu, arkada eğik perspektifte kayan iş ekranları duvarı; baskı kökenine selam olarak CMYK camgöbeği ve kayıt işaretleri */
+:root{
+  --ink:#0a0c11;
+  --ink-2:#12151d;
+  --paper:#eef1f5;
+  --muted:#8a93a3;
+  --line:rgba(238,241,245,.12);
+  --cyan:#25b8f0;
+  --magenta:#e8478f;
+  --yellow:#f4d23a;
+  --glass:rgba(14,17,24,.62);
+  --f-display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --f-body:"Geist", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --f-mono:"Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink);color:var(--paper)}
+body{
+  font-family:var(--f-body);
+  font-size:16px;line-height:1.55;
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- Arka plan: iş ekranları duvarı ---------- */
+.wall{
+  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  perspective:1400px;
+}
+.wall__plane{
+  position:absolute;left:50%;top:50%;
+  width:1700px;height:2200px;
+  transform:translate(-38%,-50%) rotateX(28deg) rotateZ(-16deg);
+  display:grid;grid-template-columns:repeat(5,1fr);gap:26px;
+}
+.col{display:flex;flex-direction:column;gap:26px;animation:drift 70s linear infinite}
+.col:nth-child(even){animation-direction:reverse;animation-duration:85s}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@media (prefers-reduced-motion:reduce){.col{animation:none}}
+
+.wall::after{ /* karartma + vinyet + ışık */
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(60% 55% at 22% 40%, rgba(10,12,17,.94) 0%, rgba(10,12,17,.78) 55%, rgba(10,12,17,.5) 100%),
+    radial-gradient(40% 40% at 85% 15%, rgba(37,184,240,.18), transparent 70%),
+    linear-gradient(to bottom, rgba(10,12,17,.2), rgba(10,12,17,.85));
+}
+.wall::before{ /* ince tarama ızgarası */
+  content:"";position:absolute;inset:0;z-index:1;
+  background-image:linear-gradient(rgba(238,241,245,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(238,241,245,.035) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(80% 70% at 70% 40%, #000 30%, transparent 85%);
+}
+
+/* tek bir "ekran görüntüsü" */
+.shot{
+  border-radius:14px;overflow:hidden;position:relative;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(37,184,240,.05);
+  flex:none;
+}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.10),transparent 40%)}
+.r916{aspect-ratio:9/16}.r45{aspect-ratio:4/5}.r169{aspect-ratio:16/9}.r11{aspect-ratio:1/1}
+
+/* haber reels */
+.s-news{background:linear-gradient(180deg,#2a3546 0%,#151b26 60%,#0d1118 100%);padding:18px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px}
+.s-news .tag{align-self:flex-start;font:600 11px/1 var(--f-mono);letter-spacing:.12em;background:#d9302c;color:#fff;padding:6px 8px;border-radius:3px}
+.s-news h4{margin:0;font:800 30px/1 var(--f-display);color:#fff;text-transform:uppercase}
+.s-news p{margin:0;font:500 12px/1.4 var(--f-body);color:#b9c2d0}
+.s-news .sky{position:absolute;inset:0 0 45% 0;background:
+  linear-gradient(180deg,transparent 40%,#151b26),
+  repeating-linear-gradient(90deg,#3c4b62 0 38px,#33405a 38px 40px,#45566f 40px 70px,#2c384d 70px 74px)}
+.s-news > *{position:relative}
+
+/* skor kartı */
+.s-score{background:radial-gradient(120% 90% at 50% 0%,#b8141f,#5c0710 60%,#2a0306);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#fff}
+.s-score .k{font:600 11px/1 var(--f-mono);letter-spacing:.2em;color:#f4d23a}
+.s-score .sc{font:800 86px/0.9 var(--f-display);letter-spacing:-.02em}
+.s-score .t{font:700 14px/1 var(--f-display);letter-spacing:.14em}
+
+/* carousel slaytı */
+.s-car{background:#f2efe8;color:#111;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.s-car .n{font:500 11px/1 var(--f-mono);color:#666}
+.s-car h4{margin:0;font:800 34px/0.98 var(--f-display);letter-spacing:-.01em}
+.s-car .dots{display:flex;gap:6px}.s-car .dots i{width:6px;height:6px;border-radius:50%;background:#bbb}.s-car .dots i:first-child{background:#111}
+
+/* kolaj */
+.s-collage{background:#e7dcc6;position:relative}
+.s-collage .p1{position:absolute;left:10%;top:12%;width:55%;height:40%;background:#3a6f8f;transform:rotate(-6deg);box-shadow:3px 4px 0 rgba(0,0,0,.25)}
+.s-collage .p2{position:absolute;right:8%;top:30%;width:46%;height:34%;background:#d9302c;transform:rotate(5deg);box-shadow:3px 4px 0 rgba(0,0,0,.25)}
+.s-collage .p3{position:absolute;left:18%;bottom:12%;width:64%;padding:10px;background:#fff;transform:rotate(-2deg);font:800 20px/1 var(--f-display);color:#111;box-shadow:3px 4px 0 rgba(0,0,0,.25)}
+
+/* X gönderisi */
+.s-x{background:#0f1115;padding:16px;display:flex;flex-direction:column;gap:10px;font-family:var(--f-body)}
+.s-x .h{display:flex;gap:10px;align-items:center}
+.s-x .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--magenta))}
+.s-x .nm{font:600 13px/1.2 var(--f-body);color:#fff}.s-x .nm small{display:block;color:#71767b;font-weight:400}
+.s-x p{margin:0;color:#e7e9ea;font-size:13px;line-height:1.45}
+.s-x .media{flex:1;border-radius:10px;background:linear-gradient(135deg,#1c3a52,#0e1a26);min-height:70px}
+
+/* künye kartı */
+.s-kunye{background:linear-gradient(135deg,#1b2230,#0e121a);display:flex;align-items:center;justify-content:center;padding:18px}
+.s-kunye .g{width:100%;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.06);padding:16px;color:#fff}
+.s-kunye .g b{display:block;font:700 20px/1.1 var(--f-display)}
+.s-kunye .g span{font:400 11px/1.4 var(--f-mono);color:#9aa6b8}
+.s-kunye .cmyk{display:flex;gap:4px;margin-top:10px}.s-kunye .cmyk i{width:10px;height:10px;border-radius:50%}
+
+/* zaman çizelgesi (kurgu) */
+.s-edit{background:#15181f;padding:12px;display:flex;flex-direction:column;gap:6px}
+.s-edit .prev{flex:1;border-radius:6px;background:linear-gradient(120deg,#25b8f0 0%,#1a3b66 50%,#e8478f 100%);opacity:.75}
+.s-edit .tr{height:12px;border-radius:3px;display:flex;gap:3px}
+.s-edit .tr i{border-radius:3px;height:100%}
+
+/* ---------- Ön plan ---------- */
+.page{
+  position:relative;z-index:2;
+  max-width:1120px;margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:clamp(40px,8vw,88px) 40px;
+  display:grid;grid-template-columns:minmax(0,560px);
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(40px,7vw,72px)}
+.mark{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--f-mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.reg{width:18px;height:18px;flex:none}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--f-mono);color:var(--paper);padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(37,184,240,.18)}
+
+.hero{display:flex;flex-direction:column;gap:20px}
+.handle{font:500 13px/1 var(--f-mono);color:var(--cyan);letter-spacing:.04em}
+h1{
+  margin:0;
+  font:800 clamp(52px,11vw,104px)/0.9 var(--f-display);
+  letter-spacing:-.035em;text-wrap:balance;
+}
+h1 .sur{display:block;color:transparent;-webkit-text-stroke:1.5px var(--paper)}
+.kunye{
+  margin:0;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
+  font:500 15px/1.3 var(--f-body);color:var(--paper);
+}
+.kunye span{display:inline-flex;align-items:center;gap:14px}
+.kunye span+span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--cyan)}
+.bio{margin:0;max-width:52ch;color:#c3cad6;font-size:17px;text-wrap:pretty}
+
+.section-label{
+  display:flex;align-items:center;gap:12px;
+  font:500 11px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  margin:clamp(40px,6vw,56px) 0 14px;
+}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.section-label.center::before{content:"";flex:1;height:1px;background:var(--line)}
+
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.links a{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:14px 16px;border-radius:14px;
+  text-decoration:none;color:var(--paper);
+  background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  transition:border-color .2s, transform .2s, background .2s;
+}
+.links a:hover{border-color:rgba(37,184,240,.55);transform:translateY(-2px);background:rgba(18,21,29,.78)}
+.links a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.links .ix{
+  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+  font:600 12px/1 var(--f-mono);color:var(--ink);background:var(--paper);
+}
+.links li:nth-child(4n+1) .ix{background:var(--cyan)}
+.links li:nth-child(4n+2) .ix{background:var(--magenta);color:#fff}
+.links li:nth-child(4n+3) .ix{background:var(--yellow)}
+.links li:nth-child(4n+4) .ix{background:var(--paper)}
+.links .lt{min-width:0;width:9.5em;text-align:left}
+.links .pf{display:block;font:600 16px/1.2 var(--f-body)}
+.links .hd{display:block;font:400 13px/1.3 var(--f-mono);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.work{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.work div{
+  padding:16px;border-radius:14px;background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:flex;flex-direction:column;gap:6px;min-width:0;
+}
+.work b{font:700 17px/1.2 var(--f-display);letter-spacing:-.005em}
+.work span{font-size:13.5px;line-height:1.45;color:#aab3c2}
+
+footer{
+  margin-top:clamp(48px,7vw,72px);padding-top:18px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+  font:400 12px/1.4 var(--f-mono);color:var(--muted);
+}
+footer .cmyk{display:inline-flex;gap:5px;align-items:center}
+footer .cmyk i{width:9px;height:9px;border-radius:50%}
+
+/* açılış */
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.28s}
+@keyframes rise{from{transform:translateY(14px);opacity:.001}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
+
+@media (max-width:520px){
+  .work{grid-template-columns:minmax(0,1fr)}
+  .wall__plane{transform:translate(-30%,-50%) rotateX(28deg) rotateZ(-16deg) scale(.8)}
+  .bio{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Arka plan duvarı (sütunlar JS ile ikiye katlanır, kesintisiz kayar) -->
+<div class="wall" aria-hidden="true">
+  <div class="wall__plane" id="plane">
+    <div class="col">
+      <div class="shot r916 s-news"><div class="sky"></div><span class="tag">REELS</span><h4>Fikirden ekrana 60 saniye</h4><p>Yapay zekayla kurgulanan dikey video</p></div>
+      <div class="shot r11 s-kunye"><div class="g"><b>Selçuk Özkan</b><span>Yapay Zeka Danışmanı<br>Gazeteci ve Tasarımcı</span><div class="cmyk"><i style="background:#25b8f0"></i><i style="background:#e8478f"></i><i style="background:#f4d23a"></i><i style="background:#eef1f5"></i></div></div></div>
+      <div class="shot r169 s-edit"><div class="prev"></div><div class="tr"><i style="width:30%;background:#25b8f0"></i><i style="width:22%;background:#3a6f8f"></i><i style="width:40%;background:#e8478f"></i></div><div class="tr"><i style="width:55%;background:#f4d23a;opacity:.7"></i><i style="width:35%;background:#8a93a3"></i></div></div>
+    </div>
+    <div class="col">
+      <div class="shot r45 s-car"><span class="n">01 / 04</span><h4>Tasarımın yeni dili</h4><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+      <div class="shot r916 s-score"><span class="k">YAPAY ZEKA</span><span class="sc">AI</span><span class="t">OPERATÖR</span></div>
+      <div class="shot r11 s-collage"><div class="p1"></div><div class="p2"></div><div class="p3">Hikâyeyi görsele çevir</div></div>
+    </div>
+    <div class="col">
+      <div class="shot r45 s-x"><div class="h"><div class="av"></div><div class="nm">Selçuk Özkan<small>@selcukai</small></div></div><p>Sabah bir fikir, akşam yayında bir video. Üretim artık böyle hızlı.</p><div class="media"></div></div>
+      <div class="shot r169 s-news"><div class="sky"></div><span class="tag">GAZETECİ</span><h4>Haberin yeni formatı</h4></div>
+      <div class="shot r916 s-collage"><div class="p1"></div><div class="p2"></div><div class="p3">Sayfadan ekrana</div></div>
+    </div>
+    <div class="col">
+      <div class="shot r11 s-kunye"><div class="g"><b>@selcukai</b><span>Tasarım · Video · Yapay Zeka</span><div class="cmyk"><i style="background:#25b8f0"></i><i style="background:#e8478f"></i><i style="background:#f4d23a"></i><i style="background:#eef1f5"></i></div></div></div>
+      <div class="shot r45 s-car"><span class="n">02 / 05</span><h4>Markanı ekranda büyüt</h4><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+      <div class="shot r169 s-edit"><div class="prev"></div><div class="tr"><i style="width:20%;background:#e8478f"></i><i style="width:50%;background:#25b8f0"></i></div><div class="tr"><i style="width:70%;background:#f4d23a;opacity:.7"></i></div></div>
+    </div>
+    <div class="col">
+      <div class="shot r916 s-news"><div class="sky"></div><span class="tag">TASARIMCI</span><h4>Her karede emek</h4><p>Yapay zeka hızlandırır, dokunuş insandan</p></div>
+      <div class="shot r45 s-x"><div class="h"><div class="av"></div><div class="nm">Selçuk Özkan<small>@selcukai</small></div></div><p>Yapay zeka bir araç. Fikir, göz ve his hâlâ insanda.</p><div class="media"></div></div>
+      <div class="shot r11 s-score"><span class="k">PROMPT</span><span class="sc">24/7</span><span class="t">ÜRETİM</span></div>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+  <div class="top rise">
+    <div class="mark">
+      <svg class="reg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 1v22M1 12h22"/></svg>
+      Konya · TR
+    </div>
+    <span class="status">İş birliklerine açık</span>
+  </div>
+
+  <header class="hero">
+    <span class="handle rise d1">@selcukai</span>
+    <h1 class="rise d1">Selçuk <span class="sur">Özkan</span></h1>
+    <p class="kunye rise d2"><span>Yapay Zeka Danışmanı</span><span>Gazeteci ve Tasarımcı</span></p>
+    <p class="bio rise d3">Gazete ve dergi sayfalarında başladım, bugün ekranlarda devam ediyorum. Tasarımı, haberciliği ve yapay zekayı bir araya getirip insanlar ve markalar için görsel, video ve içerik üretiyorum.</p>
+  </header>
+
+  <div class="section-label center rise d4">Beni takip et</div>
+  <ul class="links rise d4">
+    <li><a href="https://x.com/selcukai" target="_blank" rel="noopener"><span class="ix">X</span><span class="lt"><span class="pf">X</span><span class="hd">@selcukai</span></span></a></li>
+    <li><a href="https://www.instagram.com/selcukai/" target="_blank" rel="noopener"><span class="ix">IG</span><span class="lt"><span class="pf">Instagram</span><span class="hd">@selcukai</span></span></a></li>
+    <li><a href="https://www.tiktok.com/@selcukai" target="_blank" rel="noopener"><span class="ix">TT</span><span class="lt"><span class="pf">TikTok</span><span class="hd">@selcukai</span></span></a></li>
+    <li><a href="https://www.facebook.com/selcukai" target="_blank" rel="noopener"><span class="ix">FB</span><span class="lt"><span class="pf">Facebook</span><span class="hd">@selcukai</span></span></a></li>
+  </ul>
+
+  <div class="section-label">Neler yapıyorum</div>
+  <div class="work">
+    <div><b>Reels ve kısa video</b><span>Bir fikri, kaydırırken insanı durduran kısa videolara dönüştürüyorum.</span></div>
+    <div><b>Görsel tasarım</b><span>Sosyal medya, kampanya ve marka görselleri; her platforma kendi dilinde.</span></div>
+    <div><b>Dijital gazetecilik</b><span>Haberi doğru anlatmak, sonra onu herkesin anlayacağı bir görsele çevirmek.</span></div>
+    <div><b>Yapay zeka operatörlüğü</b><span>Doğru aracı doğru yerde kullanıp işi hızlandırıyorum, kaliteden ödün vermeden.</span></div>
+  </div>
+
+  <footer>
+    <span>© 2026 Selçuk Özkan</span>
+    <span class="cmyk"><i style="background:var(--cyan)"></i><i style="background:var(--magenta)"></i><i style="background:var(--yellow)"></i><i style="background:var(--paper)"></i>&nbsp;baskıdan ekrana</span>
+  </footer>
+</main>
+
+<script>
+// Her sütunu ikiye katla: kayma animasyonu -%50'de başa sarınca kesinti olmasın
+document.querySelectorAll('#plane .col').forEach(function(c){ c.innerHTML += c.innerHTML; });
+</script>
+
+</body>
+</html>
